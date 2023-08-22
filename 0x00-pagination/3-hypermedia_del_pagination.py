@@ -7,6 +7,7 @@ import csv
 import math
 from typing import List, Dict, Any
 
+
 class Server:
     """Server class to paginate a database of popular baby names.
     """
@@ -87,16 +88,17 @@ class Server:
         page = index
         if page is None:
             page = 0
-        #assert(isinstance(page, int))
+        assert(page < len(self.indexed_dataset()))
         assert(isinstance(page_size, int))
         assert(page >= 0)
         assert(page_size > 0)
 
         data: Dict = {}
         All = self.indexed_dataset()
-        start = max(page-1,0 )
+        start = max(page - 1, 0)
 
-        returnedData = [All[x] for x in All if (x>=start  and x < start+page_size)]
+        returnedData = [All[x] for x in All if
+                        (x >= start and x < start + page_size)]
 
         data['index'] = start + 1
 
@@ -106,6 +108,4 @@ class Server:
             data['next_index'] = data['index'] + page_size
         data['page_size'] = len(returnedData)
         data['data'] = returnedData
-        
         return data
- 
