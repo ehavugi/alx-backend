@@ -9,6 +9,7 @@ BaseCaching = __import__('base_caching').BaseCaching
 
 class LIFOCache(BaseCaching):
     """Basic cache based on basecaching class.
+    LIFO based replacement policy
     """
     def __init__(self):
         """Initialize with super class
@@ -28,7 +29,7 @@ class LIFOCache(BaseCaching):
                 print("DISCARD: {}".format(a))
                 del self.cache_data[a]
             self._lifo.put(key)
-    
+
     def get(self, key):
         """Get item from cache if there
         """
