@@ -35,7 +35,7 @@ username = None
 def get_user():
     """Return a user ID given a the request.
     """
-    user_id = request.args.get('login-as', None)
+    user_id = request.args.get('login_as', None)
     user = users.get(user_id, None)
     if user:
         return user.get('name', None)
