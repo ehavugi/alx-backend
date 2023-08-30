@@ -47,7 +47,7 @@ def get_user():
 
 
 @babel.timezoneselector
-def get_timezone():
+def get_timezone() -> str:
     """Get user time zone
     """
     req = request.args.get("timezone", None)
@@ -120,4 +120,4 @@ def get_locale():
 
 
 if __name__ == '__main__':
-    app.run(port=8091, debug=True)
+    app.run(port=5000, debug=True)
