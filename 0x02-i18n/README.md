@@ -1,8 +1,8 @@
 # 0x02. i18n
 ## mandatory
 - [x] 0. Basic Flask app
-- [ ] 1. Basic Babel setup
-- [ ] 2. Get locale from request
+- [x] 1. Basic Babel setup
+- [x] 2. Get locale from request
 - [ ] 3. Parametrize templates
 - [ ] 4. Force locale with URL parameter
 - [ ] 5. Mock logging in

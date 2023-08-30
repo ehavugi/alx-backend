@@ -5,6 +5,7 @@ and internationalization
 """
 from flask import Flask, render_template
 from flask_babel import Babel
+from flask import request
 
 
 app = Flask(__name__)
@@ -35,7 +36,7 @@ def main():
 def get_locale():
     """Local getter function using babel
     """
-    return request.accept_languages.best_match(app.config['LANUAGES'])
+    return request.accept_languages.best_match(app.config['LANGUAGES'])
 
 
 if __name__ == '__main__':
