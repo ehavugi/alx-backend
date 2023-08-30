@@ -1,2 +1,7 @@
 #!/usr/bin/env bash
 pycodestyle *.py
+## Assuming already initialized a clever one can check if already exists
+pybabel extract -F babel.cfg -o messages.pot .
+pybabel update -i messages.pot -d translations -l en
+pybabel update -i messages.pot -d translations -l fr
+pybabel compile -d translations
