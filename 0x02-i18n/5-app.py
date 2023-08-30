@@ -6,15 +6,16 @@ and internationalization
 from flask import Flask, render_template
 from flask_babel import Babel
 from flask import request
+from flask import g
 
 
 app = Flask(__name__)
 
 users = {
-    1: {"name": "Balou", "locale": "fr", "timezone": "Europe/Paris"},
-    2: {"name": "Beyonce", "locale": "en", "timezone": "US/Central"},
-    3: {"name": "Spock", "locale": "kg", "timezone": "Vulcan"},
-    4: {"name": "Teletubby", "locale": None, "timezone": "Europe/London"},
+    "1": {"name": "Balou", "locale": "fr", "timezone": "Europe/Paris"},
+    "2": {"name": "Beyonce", "locale": "en", "timezone": "US/Central"},
+    "3": {"name": "Spock", "locale": "kg", "timezone": "Vulcan"},
+    "4": {"name": "Teletubby", "locale": None, "timezone": "Europe/London"},
 }
 
 
@@ -28,13 +29,16 @@ class Config(object):
 
 app.config.from_object(Config)
 babel = Babel(app)
+username = None
 
 
 def get_user():
     """Return a user ID given a the request.
     """
     user_id = request.args.get('login-as', None)
-    return users.get(user_id, None)
+    user = users.get(user_id, None)
+    if user:
+        return user.get('name', None)
 
 
 @app.before_request
@@ -43,7 +47,9 @@ def before_request():
     """
     user = get_user()
     if user:
-        flask.g.user = user
+        g.user = user
+    else:
+        g.user = None
 
 
 @app.route("/")
@@ -52,7 +58,8 @@ def main():
     App route. Main page
     Render template 5-index.html
     """
-    return render_template("5-index.html")
+    username = g.user
+    return render_template("5-index.html", username=g.user)
 
 
 @babel.localeselector
@@ -67,4 +74,4 @@ def get_locale():
 
 
 if __name__ == '__main__':
-    app.run(port=8091)
+    app.run(port=8091, debug=True)

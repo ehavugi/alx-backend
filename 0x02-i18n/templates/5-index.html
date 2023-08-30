@@ -4,10 +4,10 @@
 </head>
 <body>
 <h1>{{ _('home_header')}}</h1>
-<p>{% if flask.g.user %}
-{{ _(logged_in_as) }}
+{% if username %}
+<p>{{ _('logged_in_as', username=username) }}</p>
 {% else %}
-{{ _(not_logged_in)}}
+<p>{{ _('not_logged_in') }}</p>
 {% endif %}
 
 </body>
