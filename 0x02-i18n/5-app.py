@@ -12,10 +12,10 @@ from flask import g
 app = Flask(__name__)
 
 users = {
-    "1": {"name": "Balou", "locale": "fr", "timezone": "Europe/Paris"},
-    "2": {"name": "Beyonce", "locale": "en", "timezone": "US/Central"},
-    "3": {"name": "Spock", "locale": "kg", "timezone": "Vulcan"},
-    "4": {"name": "Teletubby", "locale": None, "timezone": "Europe/London"},
+    1: {"name": "Balou", "locale": "fr", "timezone": "Europe/Paris"},
+    2: {"name": "Beyonce", "locale": "en", "timezone": "US/Central"},
+    3: {"name": "Spock", "locale": "kg", "timezone": "Vulcan"},
+    4: {"name": "Teletubby", "locale": None, "timezone": "Europe/London"},
 }
 
 
@@ -36,9 +36,13 @@ def get_user():
     """Return a user ID given a the request.
     """
     user_id = request.args.get('login_as', None)
-    user = users.get(user_id, None)
-    if user:
-        return user.get('name', None)
+    try:
+        if user_id:
+            user = users.get(int(user_id), None)
+            if user:
+                return user.get('name', None)
+    except ValueError:
+        return None
 
 
 @app.before_request
